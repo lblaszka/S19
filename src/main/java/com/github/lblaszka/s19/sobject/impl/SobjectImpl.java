@@ -1,4 +1,6 @@
-package com.github.lblaszka.s19.sobject;
+package com.github.lblaszka.s19.sobject.impl;
+
+import com.github.lblaszka.s19.sobject.Sobject;
 
 public class SobjectImpl implements Sobject
 {
