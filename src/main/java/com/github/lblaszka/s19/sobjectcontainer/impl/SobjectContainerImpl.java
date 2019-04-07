@@ -4,6 +4,7 @@ import com.github.lblaszka.s19.sobject.Sobject;
 import com.github.lblaszka.s19.sobject.SobjectImpl;
 import com.github.lblaszka.s19.sobjectcontainer.SobjectCollection;
 import com.github.lblaszka.s19.sobjectcontainer.SobjectContainer;
+import com.github.lblaszka.s19.sobjectcontainer.SobjectContainerStrategy;
 import com.github.lblaszka.s19.sobjectcontainer.SobjectRepresentativeCollection;
 
 import java.util.ArrayList;
@@ -12,9 +13,18 @@ public class SobjectContainerImpl implements SobjectContainer
 {
     private long idCount = 0;
     private ArrayList<Sobject> sobjectCollection;
+    private SobjectContainerStrategy strategy;
 
-    public SobjectContainerImpl()
+    public static SobjectContainer newInstance( Class strategyClass ) throws IllegalAccessException, InstantiationException
     {
+        SobjectContainerStrategy sobjectContainerStrategy = (SobjectContainerStrategy) strategyClass.newInstance();
+        return new SobjectContainerImpl(sobjectContainerStrategy);
+
+    }
+
+    private SobjectContainerImpl( SobjectContainerStrategy strategy )
+    {
+        this.strategy = strategy;
         this.sobjectCollection = new ArrayList<>(  );
     }
 
@@ -61,6 +71,27 @@ public class SobjectContainerImpl implements SobjectContainer
     public SobjectCollection getSobjectCollection()
     {
         return new SobjectCollectionImpl( this.sobjectCollection );
+    }
+
+
+    @Override
+    public void start()
+    {
+        this.strategy.start();
+    }
+
+
+    @Override
+    public void stop()
+    {
+        for( Sobject sobject: sobjectCollection )
+        {
+            sobject.stop();
+            sobject.kill();
+        }
+
+        this.strategy.stop();
+
     }
 
 
