@@ -1,7 +1,7 @@
 package com.github.lblaszka.s19.sobjectcontainer.impl;
 
 import com.github.lblaszka.s19.sobject.Sobject;
-import com.github.lblaszka.s19.sobject.SobjectImpl;
+import com.github.lblaszka.s19.sobject.impl.SobjectImpl;
 import com.github.lblaszka.s19.sobjectcontainer.SobjectCollection;
 import com.github.lblaszka.s19.sobjectcontainer.SobjectContainer;
 import com.github.lblaszka.s19.sobjectcontainer.SobjectRepresentativeCollection;
@@ -37,7 +37,7 @@ public class SobjectContainerImpl implements SobjectContainer
         SobjectImpl sobject;
         try
         {
-            sobject = SobjectImpl.newInstance( idCount++, sobjectStrategy );
+            sobject = SobjectImpl.newInstance( idCount++, this.environment, sobjectStrategy );
         } catch ( Exception e )
         {
             e.printStackTrace();
