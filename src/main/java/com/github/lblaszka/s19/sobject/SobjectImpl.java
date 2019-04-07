@@ -36,6 +36,13 @@ public class SobjectImpl implements Sobject
 
 
     @Override
+    public SobjectStrategy getSobjectStrategy()
+    {
+        return this.strategy;
+    }
+
+
+    @Override
     public void start()
     {
         this.strategy.start();
