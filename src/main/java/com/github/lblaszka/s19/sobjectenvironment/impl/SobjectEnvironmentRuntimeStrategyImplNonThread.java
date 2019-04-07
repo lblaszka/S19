@@ -15,6 +15,7 @@ public class SobjectEnvironmentRuntimeStrategyImplNonThread implements SobjectEn
     private LocalDateTime lastUpdateDateTime;
     private long deltaTime=0;
     private SobjectContainer sobjectContainer;
+    private boolean working;
 
 
     public SobjectEnvironmentRuntimeStrategyImplNonThread()
@@ -30,11 +31,25 @@ public class SobjectEnvironmentRuntimeStrategyImplNonThread implements SobjectEn
 
 
     @Override
-    public void run( SobjectContainer sobjectContainer )
+    public void setSobjectContainer( SobjectContainer sobjectContainer )
     {
         lastUpdateDateTime = LocalDateTime.now();
         this.sobjectContainer = sobjectContainer;
+    }
+
+
+    @Override
+    public void start()
+    {
+        this.working = true;
         loop();
+    }
+
+
+    @Override
+    public void stop()
+    {
+        this.working = false;
     }
 
 
@@ -47,7 +62,7 @@ public class SobjectEnvironmentRuntimeStrategyImplNonThread implements SobjectEn
     private void loop()
     {
         SobjectCollection sobjectCollection = this.sobjectContainer.getSobjectCollection();
-        while( true )
+        while( this.working )
         {
             updateDeltaTime();
 

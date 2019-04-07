@@ -7,6 +7,10 @@ import java.time.LocalDateTime;
 public interface SobjectEnvironmentRuntimeStrategy
 {
     void setFrequence( int mS );
-    void run( SobjectContainer sobjectContainer );
+    void setSobjectContainer( SobjectContainer sobjectContainer );
+
+    void start();
+    void stop();
+
     long getDeltaTime();
 }
