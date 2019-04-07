@@ -1,4 +1,4 @@
-package com.github.lblaszka.s19.sobjectcontainer;
+package com.github.lblaszka.s19.sobjectcontainer.impl;
 
 import com.github.lblaszka.s19.sobject.SobjectStrategy;
 import com.github.lblaszka.s19.sobjectenvironment.SobjectEnvironment;

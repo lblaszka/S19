@@ -4,28 +4,30 @@ import com.github.lblaszka.s19.sobject.Sobject;
 import com.github.lblaszka.s19.sobject.SobjectImpl;
 import com.github.lblaszka.s19.sobjectcontainer.SobjectCollection;
 import com.github.lblaszka.s19.sobjectcontainer.SobjectContainer;
-import com.github.lblaszka.s19.sobjectcontainer.SobjectContainerStrategy;
 import com.github.lblaszka.s19.sobjectcontainer.SobjectRepresentativeCollection;
+import com.github.lblaszka.s19.sobjectenvironment.SobjectEnvironment;
 
 import java.util.ArrayList;
 
 public class SobjectContainerImpl implements SobjectContainer
 {
-    private long idCount = 0;
-    private ArrayList<Sobject> sobjectCollection;
-    private SobjectContainerStrategy strategy;
+    private ArrayList<Sobject> sobjectCollection = new ArrayList<>(  );;
+    private final SobjectContainerStrategy strategy;
+    private final SobjectEnvironment environment;
 
-    public static SobjectContainer newInstance( Class strategyClass ) throws IllegalAccessException, InstantiationException
+    private long idCount = 0;
+
+    public static SobjectContainer newInstance( Class strategyClass, SobjectEnvironment environment ) throws IllegalAccessException, InstantiationException
     {
         SobjectContainerStrategy sobjectContainerStrategy = (SobjectContainerStrategy) strategyClass.newInstance();
-        return new SobjectContainerImpl(sobjectContainerStrategy);
-
+        return new SobjectContainerImpl(sobjectContainerStrategy, environment );
     }
 
-    private SobjectContainerImpl( SobjectContainerStrategy strategy )
+    private SobjectContainerImpl( SobjectContainerStrategy strategy, SobjectEnvironment environment )
     {
+        this.environment = environment;
         this.strategy = strategy;
-        this.sobjectCollection = new ArrayList<>(  );
+        this.strategy.setSobjectEnvironment( this.environment );
     }
 
 
@@ -91,7 +93,7 @@ public class SobjectContainerImpl implements SobjectContainer
         }
 
         this.strategy.stop();
-
+        this.strategy.kill();
     }
 
 
