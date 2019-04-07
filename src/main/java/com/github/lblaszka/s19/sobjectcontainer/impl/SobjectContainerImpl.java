@@ -102,4 +102,16 @@ public class SobjectContainerImpl implements SobjectContainer
     {
         return new SobjectRepresentativeCollectionImpl( this.sobjectCollection );
     }
+
+
+    @Override
+    public synchronized void deleteSobject( Sobject sobject )
+    {
+        if( this.sobjectCollection.contains( sobject ) )
+        {
+            sobject.stop();
+            sobject.kill();
+            this.sobjectCollection.remove( sobject );
+        }
+    }
 }
