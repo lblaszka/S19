@@ -6,14 +6,19 @@ import com.github.lblaszka.s19.sobjectcontainer.SobjectContainer;
 import com.github.lblaszka.s19.sobjectcontainer.SobjectContainerRepresentative;
 import com.github.lblaszka.s19.sobjectcontainer.impl.SobjectContainerImpl;
 import com.github.lblaszka.s19.sobjectenvironment.SobjectEnvironment;
+import com.github.lblaszka.s19.sobjectenvironment.SobjectEnvironmentRuntimeStrategy;
 
 public class SobjectEnvironmentImpl implements SobjectEnvironment
 {
+    SobjectEnvironmentRuntimeStrategy runtimeStrategy;
     SobjectContainer sobjectContainer;
+
 
     public SobjectEnvironmentImpl( Class strategyClass )
     {
         this.changeContainer( strategyClass );
+        this.runtimeStrategy = new SobjectEnvironmentRuntimeStrategyImplNonThread();
+        this.runtimeStrategy.setFrequence( 100 );
     }
 
 
@@ -27,12 +32,7 @@ public class SobjectEnvironmentImpl implements SobjectEnvironment
     @Override
     public void start()
     {
-        SobjectCollection sobjectCollection = this.sobjectContainer.getSobjectCollection();
-
-        for( Sobject sobject : sobjectCollection )
-        {
-            sobject.update();
-        }
+        this.runtimeStrategy.run( this.sobjectContainer );
     }
 
 
