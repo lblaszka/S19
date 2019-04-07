@@ -1,6 +1,7 @@
 package com.github.lblaszka.s19.sobject.impl;
 
 import com.github.lblaszka.s19.sobject.SobjectRepresentative;
+import com.github.lblaszka.s19.sobjectenvironment.SobjectEnvironmentRepresentative;
 
 public abstract class SobjectStrategy
 {
