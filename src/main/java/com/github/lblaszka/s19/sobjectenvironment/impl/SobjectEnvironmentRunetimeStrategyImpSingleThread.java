@@ -1,8 +1,6 @@
 package com.github.lblaszka.s19.sobjectenvironment.impl;
 
-import com.github.lblaszka.s19.sobjectenvironment.SobjectEnvironmentRuntimeStrategy;
-
-public class SobjectEnvironmentRunetimeStrategyImpSingleThread extends SobjectEnvironmentRuntimeStrategyImplNonThread
+public class SobjectEnvironmentRunetimeStrategyImpSingleThread extends SobjectEnvironmentRunetimeStrategyImplNonThread
 {
     private Thread thread;
 

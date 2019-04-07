@@ -3,12 +3,12 @@ package com.github.lblaszka.s19.sobjectenvironment.impl;
 import com.github.lblaszka.s19.sobject.Sobject;
 import com.github.lblaszka.s19.sobjectcontainer.SobjectCollection;
 import com.github.lblaszka.s19.sobjectcontainer.SobjectContainer;
-import com.github.lblaszka.s19.sobjectenvironment.SobjectEnvironmentRuntimeStrategy;
+import com.github.lblaszka.s19.sobjectenvironment.SobjectEnvironmentRunetimeStrategy;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
 
-public class SobjectEnvironmentRuntimeStrategyImplNonThread implements SobjectEnvironmentRuntimeStrategy
+public class SobjectEnvironmentRunetimeStrategyImplNonThread implements SobjectEnvironmentRunetimeStrategy
 {
 
     private int fequency=0;

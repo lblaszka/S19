@@ -1,22 +1,19 @@
 package com.github.lblaszka.s19.sobjectenvironment.impl;
 
-import com.github.lblaszka.s19.sobject.Sobject;
-import com.github.lblaszka.s19.sobjectcontainer.SobjectCollection;
 import com.github.lblaszka.s19.sobjectcontainer.SobjectContainer;
 import com.github.lblaszka.s19.sobjectcontainer.SobjectContainerRepresentative;
 import com.github.lblaszka.s19.sobjectcontainer.impl.SobjectContainerImpl;
-import com.github.lblaszka.s19.sobjectcontainer.impl.SobjectContainerStrategy;
 import com.github.lblaszka.s19.sobjectenvironment.SobjectEnvironment;
-import com.github.lblaszka.s19.sobjectenvironment.SobjectEnvironmentRuntimeStrategy;
+import com.github.lblaszka.s19.sobjectenvironment.SobjectEnvironmentRunetimeStrategy;
 
 public class SobjectEnvironmentImpl implements SobjectEnvironment
 {
-    SobjectEnvironmentRuntimeStrategy runtimeStrategy;
+    SobjectEnvironmentRunetimeStrategy runtimeStrategy;
     SobjectContainer sobjectContainer;
 
     public static SobjectEnvironment newInstance( Class containerstrategyClass, Class runeTimeStrategyClass, int frequency ) throws IllegalAccessException, InstantiationException
     {
-        SobjectEnvironmentRuntimeStrategy runtimeStrategy = (SobjectEnvironmentRuntimeStrategy) runeTimeStrategyClass.newInstance();
+        SobjectEnvironmentRunetimeStrategy runtimeStrategy = (SobjectEnvironmentRunetimeStrategy) runeTimeStrategyClass.newInstance();
 
         return new SobjectEnvironmentImpl( containerstrategyClass, runtimeStrategy, frequency );
     }
@@ -29,7 +26,7 @@ public class SobjectEnvironmentImpl implements SobjectEnvironment
     }
 
 
-    private SobjectEnvironmentImpl( Class strategyClass, SobjectEnvironmentRuntimeStrategy runtimeStrategy, int frequency )
+    private SobjectEnvironmentImpl( Class strategyClass, SobjectEnvironmentRunetimeStrategy runtimeStrategy, int frequency )
     {
         this.runtimeStrategy = runtimeStrategy;
         this.runtimeStrategy.setFrequency( frequency );
