@@ -4,4 +4,5 @@ public interface SobjectRepresentative
 {
     long getId();
     String getName();
+    SobjectStrategy getSobjectStrategy();
 }
