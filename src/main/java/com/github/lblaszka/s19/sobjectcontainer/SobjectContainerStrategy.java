@@ -10,12 +10,12 @@ public abstract class SobjectContainerStrategy
     protected abstract void start();
     protected abstract void stop();
 
-    protected final SobjectEnvironment getSobject()
+    protected final SobjectEnvironment getSobjectEnvironment()
     {
         return this.environment;
     }
 
-    final void setSobject( SobjectEnvironment environment )
+    final void setSobjectEnvironment( SobjectEnvironment environment )
     {
         this.environment = environment;
     }
