@@ -15,7 +15,7 @@ public class SobjectEnvironmentRuntimeStrategyImplNonThread implements SobjectEn
     private LocalDateTime lastUpdateDateTime;
     private long deltaTime=0;
     private SobjectContainer sobjectContainer;
-    private boolean running;
+    protected boolean running;
 
 
     @Override

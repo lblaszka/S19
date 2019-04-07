@@ -16,14 +16,16 @@ public class SobjectEnvironmentRunetimeStrategyImpSingleThread extends SobjectEn
     @Override
     public void start()
     {
-        super.start();
+        if( this.running == false )
+            this.thread.start();
     }
 
 
     @Override
     public void pause()
     {
-        super.pause();
+        if( this.running == true )
+            this.thread.stop();
     }
 
     private class Loop implements Runnable
@@ -46,6 +48,7 @@ public class SobjectEnvironmentRunetimeStrategyImpSingleThread extends SobjectEn
             } catch ( InterruptedException e )
             {
                 e.printStackTrace();
+                this.sobjectEnvironmentRunetimeStrategyImpSingleThread.running=false;
             }
         }
     }

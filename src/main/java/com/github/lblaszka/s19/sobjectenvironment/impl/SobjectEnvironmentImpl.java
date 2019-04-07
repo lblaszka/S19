@@ -31,9 +31,9 @@ public class SobjectEnvironmentImpl implements SobjectEnvironment
 
     private SobjectEnvironmentImpl( Class strategyClass, SobjectEnvironmentRuntimeStrategy runtimeStrategy, int frequency )
     {
-        this.changeContainer( strategyClass );
         this.runtimeStrategy = runtimeStrategy;
         this.runtimeStrategy.setFrequency( frequency );
+        this.changeContainer( strategyClass );
     }
 
 
