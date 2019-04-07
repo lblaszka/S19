@@ -62,4 +62,11 @@ public class SobjectEnvironmentImpl implements SobjectEnvironment
         this.sobjectContainer = newSobjectContainer;
         this.sobjectContainer.start();
     }
+
+
+    @Override
+    public long getDeltaTime()
+    {
+        return this.runtimeStrategy.getDeltaTime();
+    }
 }
