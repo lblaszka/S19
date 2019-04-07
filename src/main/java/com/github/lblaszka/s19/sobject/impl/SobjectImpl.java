@@ -10,6 +10,7 @@ public class SobjectImpl implements Sobject
     private final String name;
     private final SobjectStrategy strategy;
     private final SobjectEnvironment environment;
+    private boolean dying=false;
 
 
     public static SobjectImpl newInstance( long id, SobjectEnvironment environment, Class strategyClass ) throws IllegalAccessException, InstantiationException
@@ -80,5 +81,19 @@ public class SobjectImpl implements Sobject
     public void kill()
     {
         this.strategy.kill();
+    }
+
+
+    @Override
+    public void setDying()
+    {
+        this.dying = true;
+    }
+
+
+    @Override
+    public boolean isDying()
+    {
+        return this.dying;
     }
 }
