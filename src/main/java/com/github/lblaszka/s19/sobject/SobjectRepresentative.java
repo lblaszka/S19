@@ -10,4 +10,6 @@ public interface SobjectRepresentative
     String getName();
     SobjectStrategy getSobjectStrategy();
     SobjectEnvironmentRepresentative getSobjectEnvironmentRepresentative();
+    void setDying();
+    boolean isDying();
 }
