@@ -18,10 +18,24 @@ public class SobjectCollectionImpl implements SobjectCollection
         this.sobjectArrayList = sobjectArrayList;
     }
 
+
     @Override
-    public Sobject getById( int index )
+    public Sobject getByIndex( int index )
     {
         return this.sobjectArrayList.get( index );
+    }
+
+
+    @Override
+    public Sobject getById( long id )
+    {
+        for( Sobject sobject : sobjectArrayList )
+        {
+            if( sobject.getId() == id )
+                return sobject;
+        }
+
+        return null;
     }
 
 
