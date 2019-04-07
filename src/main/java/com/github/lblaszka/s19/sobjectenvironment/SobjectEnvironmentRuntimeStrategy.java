@@ -10,7 +10,9 @@ public interface SobjectEnvironmentRuntimeStrategy
     void setSobjectContainer( SobjectContainer sobjectContainer );
 
     void start();
-    void stop();
+    void pause();
 
     long getDeltaTime();
+
+    boolean isRunning();
 }

@@ -11,11 +11,11 @@ import java.time.LocalDateTime;
 public class SobjectEnvironmentRuntimeStrategyImplNonThread implements SobjectEnvironmentRuntimeStrategy
 {
 
-    private int fequence=0;
+    private int fequency=0;
     private LocalDateTime lastUpdateDateTime;
     private long deltaTime=0;
     private SobjectContainer sobjectContainer;
-    private boolean working;
+    private boolean running;
 
 
     public SobjectEnvironmentRuntimeStrategyImplNonThread()
@@ -26,7 +26,7 @@ public class SobjectEnvironmentRuntimeStrategyImplNonThread implements SobjectEn
     @Override
     public void setFrequence( int mS )
     {
-        this.fequence = mS;
+        this.fequency = mS;
     }
 
 
@@ -41,15 +41,22 @@ public class SobjectEnvironmentRuntimeStrategyImplNonThread implements SobjectEn
     @Override
     public void start()
     {
-        this.working = true;
-        loop();
+        this.running = true;
+        try
+        {
+            loop();
+        } catch ( InterruptedException e )
+        {
+            e.printStackTrace();
+            this.running = false;
+        }
     }
 
 
     @Override
-    public void stop()
+    public void pause()
     {
-        this.working = false;
+        this.running = false;
     }
 
 
@@ -59,10 +66,18 @@ public class SobjectEnvironmentRuntimeStrategyImplNonThread implements SobjectEn
         return this.deltaTime;
     }
 
-    private void loop()
+
+    @Override
+    public boolean isRunning()
+    {
+        return this.running;
+    }
+
+
+    private void loop() throws InterruptedException
     {
         SobjectCollection sobjectCollection = this.sobjectContainer.getSobjectCollection();
-        while( this.working )
+        while( this.running )
         {
             updateDeltaTime();
 
@@ -72,6 +87,8 @@ public class SobjectEnvironmentRuntimeStrategyImplNonThread implements SobjectEn
             }
 
             killDyingSobject();
+
+            Thread.sleep( this.fequency );
         }
     }
 

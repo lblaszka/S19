@@ -7,4 +7,5 @@ public interface SobjectEnvironmentRepresentative
     SobjectContainerRepresentative getSobjectContainerRepresentative();
     long getDeltaTime();
     void changeContainer( Class strategyClass );
+    boolean isRunning();
 }

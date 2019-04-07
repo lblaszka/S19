@@ -5,6 +5,7 @@ import com.github.lblaszka.s19.sobjectcontainer.SobjectCollection;
 import com.github.lblaszka.s19.sobjectcontainer.SobjectContainer;
 import com.github.lblaszka.s19.sobjectcontainer.SobjectContainerRepresentative;
 import com.github.lblaszka.s19.sobjectcontainer.impl.SobjectContainerImpl;
+import com.github.lblaszka.s19.sobjectcontainer.impl.SobjectContainerStrategy;
 import com.github.lblaszka.s19.sobjectenvironment.SobjectEnvironment;
 import com.github.lblaszka.s19.sobjectenvironment.SobjectEnvironmentRuntimeStrategy;
 
@@ -13,12 +14,26 @@ public class SobjectEnvironmentImpl implements SobjectEnvironment
     SobjectEnvironmentRuntimeStrategy runtimeStrategy;
     SobjectContainer sobjectContainer;
 
+    public static SobjectEnvironment newInstance( Class containerstrategyClass, Class runeTimeStrategyClass, int frequency ) throws IllegalAccessException, InstantiationException
+    {
+        SobjectEnvironmentRuntimeStrategy runtimeStrategy = (SobjectEnvironmentRuntimeStrategy) runeTimeStrategyClass.newInstance();
 
-    public SobjectEnvironmentImpl( Class strategyClass )
+        return new SobjectEnvironmentImpl( containerstrategyClass, runtimeStrategy, frequency );
+    }
+
+
+    @Override
+    public boolean isRunning()
+    {
+        return this.runtimeStrategy.isRunning();
+    }
+
+
+    private SobjectEnvironmentImpl( Class strategyClass, SobjectEnvironmentRuntimeStrategy runtimeStrategy, int frequency )
     {
         this.changeContainer( strategyClass );
-        this.runtimeStrategy = new SobjectEnvironmentRuntimeStrategyImplNonThread();
-        this.runtimeStrategy.setFrequence( 100 );
+        this.runtimeStrategy = runtimeStrategy;
+        this.runtimeStrategy.setFrequence( frequency );
     }
 
 
@@ -32,7 +47,13 @@ public class SobjectEnvironmentImpl implements SobjectEnvironment
     @Override
     public void start()
     {
-        this.runtimeStrategy.run( this.sobjectContainer );
+        this.runtimeStrategy.start();
+    }
+
+    @Override
+    public void pause()
+    {
+        this.runtimeStrategy.pause();
     }
 
 
@@ -61,6 +82,7 @@ public class SobjectEnvironmentImpl implements SobjectEnvironment
 
         this.sobjectContainer = newSobjectContainer;
         this.sobjectContainer.start();
+        this.runtimeStrategy.setSobjectContainer( sobjectContainer );
     }
 
 
