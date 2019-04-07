@@ -18,13 +18,8 @@ public class SobjectEnvironmentRuntimeStrategyImplNonThread implements SobjectEn
     private boolean running;
 
 
-    public SobjectEnvironmentRuntimeStrategyImplNonThread()
-    {
-    }
-
-
     @Override
-    public void setFrequence( int mS )
+    public void setFrequency( int mS )
     {
         this.fequency = mS;
     }
@@ -74,7 +69,7 @@ public class SobjectEnvironmentRuntimeStrategyImplNonThread implements SobjectEn
     }
 
 
-    private void loop() throws InterruptedException
+    protected void loop() throws InterruptedException
     {
         SobjectCollection sobjectCollection = this.sobjectContainer.getSobjectCollection();
         while( this.running )

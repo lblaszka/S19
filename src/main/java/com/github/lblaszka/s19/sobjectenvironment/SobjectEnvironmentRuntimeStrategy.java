@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 public interface SobjectEnvironmentRuntimeStrategy
 {
-    void setFrequence( int mS );
+    void setFrequency( int mS );
     void setSobjectContainer( SobjectContainer sobjectContainer );
 
     void start();

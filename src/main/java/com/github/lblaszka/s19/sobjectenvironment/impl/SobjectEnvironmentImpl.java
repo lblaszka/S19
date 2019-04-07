@@ -33,7 +33,7 @@ public class SobjectEnvironmentImpl implements SobjectEnvironment
     {
         this.changeContainer( strategyClass );
         this.runtimeStrategy = runtimeStrategy;
-        this.runtimeStrategy.setFrequence( frequency );
+        this.runtimeStrategy.setFrequency( frequency );
     }
 
 
