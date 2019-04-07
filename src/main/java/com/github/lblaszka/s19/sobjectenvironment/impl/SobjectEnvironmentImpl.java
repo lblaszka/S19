@@ -49,7 +49,7 @@ public class SobjectEnvironmentImpl implements SobjectEnvironment
         SobjectContainer newSobjectContainer;
         try
         {
-            newSobjectContainer = SobjectContainerImpl.newInstance( strategyClass );
+            newSobjectContainer = SobjectContainerImpl.newInstance( strategyClass, this );
         }
         catch ( Exception e )
         {
