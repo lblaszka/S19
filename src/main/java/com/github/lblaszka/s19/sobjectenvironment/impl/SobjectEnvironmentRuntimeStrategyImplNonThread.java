@@ -14,6 +14,7 @@ public class SobjectEnvironmentRuntimeStrategyImplNonThread implements SobjectEn
     private int fequence=0;
     private LocalDateTime lastUpdateDateTime;
     private long deltaTime=0;
+    private SobjectContainer sobjectContainer;
 
 
     public SobjectEnvironmentRuntimeStrategyImplNonThread()
@@ -32,7 +33,8 @@ public class SobjectEnvironmentRuntimeStrategyImplNonThread implements SobjectEn
     public void run( SobjectContainer sobjectContainer )
     {
         lastUpdateDateTime = LocalDateTime.now();
-        this.loop( sobjectContainer.getSobjectCollection() );
+        this.sobjectContainer = sobjectContainer;
+        loop();
     }
 
 
@@ -42,17 +44,37 @@ public class SobjectEnvironmentRuntimeStrategyImplNonThread implements SobjectEn
         return this.deltaTime;
     }
 
-    private void loop( SobjectCollection sobjectCollection )
+    private void loop()
     {
+        SobjectCollection sobjectCollection = this.sobjectContainer.getSobjectCollection();
         while( true )
         {
-            LocalDateTime nowTime = LocalDateTime.now();
-            this.deltaTime = Duration.between( this.lastUpdateDateTime, nowTime).toMillis();
-            this.lastUpdateDateTime = nowTime;
+            updateDeltaTime();
 
             for( Sobject sobject : sobjectCollection )
             {
                 sobject.update();
+            }
+
+            killDyingSobject();
+        }
+    }
+
+    private void updateDeltaTime()
+    {
+        LocalDateTime nowTime = LocalDateTime.now();
+        this.deltaTime = Duration.between( this.lastUpdateDateTime, nowTime).toMillis();
+        this.lastUpdateDateTime = nowTime;
+    }
+
+    private void killDyingSobject()
+    {
+        SobjectCollection sobjectCollection = this.sobjectContainer.getSobjectCollection();
+        for( Sobject sobject : sobjectCollection )
+        {
+            if( sobject.isDying() )
+            {
+                this.sobjectContainer.deleteSobject( sobject );
             }
         }
     }

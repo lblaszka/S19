@@ -4,5 +4,6 @@ import com.github.lblaszka.s19.sobject.Sobject;
 
 public interface SobjectCollection extends Iterable<Sobject>
 {
-    Sobject getById( int index );
+    Sobject getByIndex( int index );
+    Sobject getById( long id );
 }
