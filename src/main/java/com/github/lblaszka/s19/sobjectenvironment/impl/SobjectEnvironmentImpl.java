@@ -3,7 +3,7 @@ package com.github.lblaszka.s19.sobjectenvironment.impl;
 import com.github.lblaszka.s19.sobject.Sobject;
 import com.github.lblaszka.s19.sobjectcontainer.SobjectCollection;
 import com.github.lblaszka.s19.sobjectcontainer.SobjectContainer;
-import com.github.lblaszka.s19.sobjectcontainer.SobjectContainerStrategy;
+import com.github.lblaszka.s19.sobjectcontainer.SobjectContainerRepresentative;
 import com.github.lblaszka.s19.sobjectcontainer.impl.SobjectContainerImpl;
 import com.github.lblaszka.s19.sobjectenvironment.SobjectEnvironment;
 
@@ -15,6 +15,14 @@ public class SobjectEnvironmentImpl implements SobjectEnvironment
     {
         this.changeContainer( strategyClass );
     }
+
+
+    @Override
+    public SobjectContainerRepresentative getSobjectContainerRepresentative()
+    {
+        return this.sobjectContainer;
+    }
+
 
     @Override
     public void start()
@@ -41,15 +49,16 @@ public class SobjectEnvironmentImpl implements SobjectEnvironment
         SobjectContainer newSobjectContainer;
         try
         {
-            newSobjectContainer = SobjectContainerImpl.newInstance( strategyClass );
+            newSobjectContainer = SobjectContainerImpl.newInstance( strategyClass, this );
         }
         catch ( Exception e )
         {
             e.printStackTrace();
             return;
         }
+        if( this.sobjectContainer != null )
+            this.sobjectContainer.stop();
 
-        this.sobjectContainer.stop();
         this.sobjectContainer = newSobjectContainer;
         this.sobjectContainer.start();
     }
